@@ -4,6 +4,7 @@ package com.angel.agendamento_comunicacao_api.business;
 import com.angel.agendamento_comunicacao_api.business.mapper.IAgendamentoMapper;
 import com.angel.agendamento_comunicacao_api.controller.dtos.in.AgendamentoRecord;
 import com.angel.agendamento_comunicacao_api.controller.dtos.out.AgendamentoRecordOut;
+import com.angel.agendamento_comunicacao_api.infrastructure.exceptions.NotFoundException;
 import com.angel.agendamento_comunicacao_api.infrastructure.repositories.AgendamentoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,12 @@ public class AgendamentoService {
 
         return mapper.paraOut(repository.
                 save(mapper.paraEntity(agendamento)));
+    }
+
+    public AgendamentoRecordOut buscaAgendamento (Long id) {
+
+        return mapper.paraOut(repository.findById(id).
+                orElseThrow(() -> new NotFoundException("Agendamento nao encontrado.")));
     }
 
 

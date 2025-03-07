@@ -17,10 +17,17 @@ public class AgendamentoController {
 
     private final AgendamentoService service;
 
-    @PostMapping
+    @PostMapping("/agendamento")
     public ResponseEntity<AgendamentoRecordOut> criarAgendamento (@RequestBody AgendamentoRecord agendamento) {
 
         return ResponseEntity.ok(service.criarAgendamento(agendamento));
+
+    }
+
+    @GetMapping("/agendamento/{id}")
+    public ResponseEntity<AgendamentoRecordOut> buscaAgendamento (@PathVariable(name = "id") Long id) {
+
+        return ResponseEntity.ok(service.buscaAgendamento(id));
 
     }
 

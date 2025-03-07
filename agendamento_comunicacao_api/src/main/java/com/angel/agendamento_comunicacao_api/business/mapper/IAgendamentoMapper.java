@@ -13,6 +13,6 @@ public interface IAgendamentoMapper {
 
 
     Agendamento paraEntity (AgendamentoRecord agendamento);
-    AgendamentoRecordOut paraOut (Agendamento agen);
+    AgendamentoRecordOut paraOut (Agendamento agendamento);
 
 }

@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.*;
 public class AgendamentoController {
 
 
-    private final AgendamentoService agendamentoService;
+    private final AgendamentoService service;
 
     @PostMapping
     public ResponseEntity<AgendamentoRecordOut> criarAgendamento (@RequestBody AgendamentoRecord agendamento) {
 
-        return ResponseEntity.ok(agendamentoService.criarAgendamento(agendamento));
+        return ResponseEntity.ok(service.criarAgendamento(agendamento));
 
     }
 

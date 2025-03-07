@@ -13,15 +13,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AgendamentoService {
 
-    private final AgendamentoRepository agendamentoRepository;
-    private final IAgendamentoMapper agendamentoMapper;
-
+    private final AgendamentoRepository repository;
+    private final IAgendamentoMapper mapper;
 
 
     public AgendamentoRecordOut criarAgendamento (AgendamentoRecord agendamento) {
 
-        return agendamentoMapper.paraOut(agendamentoRepository.
-                save(agendamentoMapper.paraEntity(agendamento)));
+        return mapper.paraOut(repository.
+                save(mapper.paraEntity(agendamento)));
     }
 
 

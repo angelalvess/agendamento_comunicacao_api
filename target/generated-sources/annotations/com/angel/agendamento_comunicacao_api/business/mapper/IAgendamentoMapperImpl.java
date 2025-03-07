@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-07T17:55:22-0300",
+    date = "2025-03-07T18:56:14-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Azul Systems, Inc.)"
 )
 @Component
@@ -38,20 +38,43 @@ public class IAgendamentoMapperImpl implements IAgendamentoMapper {
             return null;
         }
 
+        Long id = null;
         String emailDestinatario = null;
         String telefoneDestinatario = null;
         String mensagem = null;
         LocalDateTime dataHoraEnvio = null;
         StatusAgendamentoEnum statusAgendamento = null;
 
+        id = agendamento.getId();
         emailDestinatario = agendamento.getEmailDestinatario();
         telefoneDestinatario = agendamento.getTelefoneDestinatario();
         mensagem = agendamento.getMensagem();
         dataHoraEnvio = agendamento.getDataHoraEnvio();
         statusAgendamento = agendamento.getStatusAgendamento();
 
-        AgendamentoRecordOut agendamentoRecordOut = new AgendamentoRecordOut( emailDestinatario, telefoneDestinatario, mensagem, dataHoraEnvio, statusAgendamento );
+        AgendamentoRecordOut agendamentoRecordOut = new AgendamentoRecordOut( id, emailDestinatario, telefoneDestinatario, mensagem, dataHoraEnvio, statusAgendamento );
 
         return agendamentoRecordOut;
+    }
+
+    @Override
+    public Agendamento paraEntityCancelamento(Agendamento agendamento) {
+        if ( agendamento == null ) {
+            return null;
+        }
+
+        Agendamento.AgendamentoBuilder agendamento1 = Agendamento.builder();
+
+        agendamento1.id( agendamento.getId() );
+        agendamento1.emailDestinatario( agendamento.getEmailDestinatario() );
+        agendamento1.telefoneDestinatario( agendamento.getTelefoneDestinatario() );
+        agendamento1.mensagem( agendamento.getMensagem() );
+        agendamento1.dataHoraEnvio( agendamento.getDataHoraEnvio() );
+        agendamento1.dataHoraAgendamento( agendamento.getDataHoraAgendamento() );
+
+        agendamento1.dataHoraModificado( LocalDateTime.now() );
+        agendamento1.statusAgendamento( StatusAgendamentoEnum.CANCELADO );
+
+        return agendamento1.build();
     }
 }

@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
 
 public record AgendamentoRecordOut(String emailDestinatario, String telefoneDestinatario, String mensagem,
                                    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-                                   LocalDateTime dataHoraEnvio, StatusAgendamentoEnum statusNotificacaoEnum) {
+                                   LocalDateTime dataHoraEnvio, StatusAgendamentoEnum statusAgendamento) {
 }

@@ -28,8 +28,8 @@ public class Agendamento {
     private StatusAgendamentoEnum statusAgendamentoEnum;
 
     @PrePersist
-    void prePersist () {
-        statusAgendamentoEnum = StatusAgendamentoEnum.AGENDADO;
+    private void prePersist () {
         dataHoraAgendamento = LocalDateTime.now();
+        statusAgendamentoEnum = StatusAgendamentoEnum.AGENDADO;
     }
 }

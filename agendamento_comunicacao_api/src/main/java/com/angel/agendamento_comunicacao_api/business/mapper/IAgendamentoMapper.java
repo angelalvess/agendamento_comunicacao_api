@@ -14,11 +14,9 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 @Mapper(componentModel = SPRING)
 public interface IAgendamentoMapper {
 
-
     Agendamento paraEntity (AgendamentoRecord agendamento);
 
     AgendamentoRecordOut paraOut (Agendamento agendamento);
-
 
     @Mapping(target = "dataHoraModificado", expression = "java(LocalDateTime.now())")
     @Mapping(target = "statusAgendamento", expression = "java(StatusAgendamentoEnum.CANCELADO)")

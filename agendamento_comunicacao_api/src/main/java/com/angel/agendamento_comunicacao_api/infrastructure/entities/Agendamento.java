@@ -1,26 +1,23 @@
 package com.angel.agendamento_comunicacao_api.infrastructure.entities;
 
+
 import com.angel.agendamento_comunicacao_api.infrastructure.enums.StatusAgendamentoEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Builder
-@Getter
 @Entity
 @Table(name = "agendamento")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
 public class Agendamento {
 
-
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
 
     private String emailDestinatario;
@@ -29,11 +26,11 @@ public class Agendamento {
     private LocalDateTime dataHoraAgendamento;
     private LocalDateTime dataHoraEnvio;
     private LocalDateTime dataHoraModificado;
-    private StatusAgendamentoEnum statusAgendamento;
+    private StatusAgendamentoEnum statusAgendamentoEnum;
 
     @PrePersist
     private void prePersist () {
         dataHoraAgendamento = LocalDateTime.now();
-        statusAgendamento = StatusAgendamentoEnum.AGENDADO;
+        statusAgendamentoEnum = StatusAgendamentoEnum.AGENDADO;
     }
 }

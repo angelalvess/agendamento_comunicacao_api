@@ -8,7 +8,6 @@ import com.angel.agendamento_comunicacao_api.infrastructure.entities.Agendamento
 import com.angel.agendamento_comunicacao_api.infrastructure.exceptions.NotFoundException;
 import com.angel.agendamento_comunicacao_api.infrastructure.repositories.AgendamentoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +16,6 @@ public class AgendamentoService {
 
     private final AgendamentoRepository agendamentoRepository;
     private final IAgendamentoMapper agendamentoMapper;
-
 
     public AgendamentoRecordOut criarAgendamento (AgendamentoRecord agendamento) {
 
@@ -31,15 +29,12 @@ public class AgendamentoService {
                 orElseThrow(() -> new NotFoundException("Agendamento nao encontrado.")));
     }
 
-
     public void cancelaAgendamento (Long id) {
         Agendamento agendamento = agendamentoRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Id não encontrador"));
+                .orElseThrow(() -> new NotFoundException("Agendamento nao encontrado."));
         agendamentoRepository.save(
                 agendamentoMapper.paraEntityCancelamento(agendamento)
         );
     }
 
 }
-
-

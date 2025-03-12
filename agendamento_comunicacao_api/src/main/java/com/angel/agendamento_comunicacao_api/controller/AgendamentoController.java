@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -32,6 +33,12 @@ public class AgendamentoController {
 
         AgendamentoRecordOut out = agendamentoService.buscaAgendamento(id);
         return ResponseEntity.ok(out);
+    }
+
+    @GetMapping("/agendamento")
+    public ResponseEntity<List<AgendamentoRecordOut>> buscaTodosAgendamentos () {
+
+        return ResponseEntity.ok(agendamentoService.buscaTodosAgendamentos());
     }
 
     @DeleteMapping("/{id}")

@@ -10,9 +10,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "agendamento")
 @AllArgsConstructor
-@Setter
-@Getter
 @NoArgsConstructor
+@Getter
 @Builder
 public class Agendamento {
 
@@ -29,8 +28,8 @@ public class Agendamento {
     private StatusAgendamentoEnum statusAgendamentoEnum;
 
     @PrePersist
-    private void prePersist () {
-        dataHoraAgendamento = LocalDateTime.now();
+    void prePersist () {
         statusAgendamentoEnum = StatusAgendamentoEnum.AGENDADO;
+        dataHoraAgendamento = LocalDateTime.now();
     }
 }

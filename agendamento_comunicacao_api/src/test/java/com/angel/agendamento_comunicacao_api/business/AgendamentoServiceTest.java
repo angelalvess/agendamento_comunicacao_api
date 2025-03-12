@@ -11,6 +11,7 @@ import com.angel.agendamento_comunicacao_api.infrastructure.repositories.Agendam
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jakarta.validation.constraints.NotNull;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,8 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -91,6 +94,7 @@ class AgendamentoServiceTest {
         assertThat(out).usingRecursiveComparison().isEqualTo(agendamentoRecordOut);
     }
 
+
     @Test
     void deveCancelarAgendamentoComSucesso () throws Exception {
         when(agendamentoRepository.findById(3L)).
@@ -99,18 +103,46 @@ class AgendamentoServiceTest {
         when(agendamentoRepository.save(agendamento)).thenAnswer(invocation -> {
             Agendamento savedAgendamento = invocation.getArgument(0);
             savedAgendamento.setStatusAgendamento(StatusAgendamentoEnum.CANCELADO);
+            savedAgendamento.setDataHoraModificado(LocalDateTime.of(2025, 3, 12, 14, 0, 0));
             return savedAgendamento;
         });
 
         service.cancelaAgendamento(3L);
 
+        assertThat(agendamento.getStatusAgendamento()).isEqualTo(StatusAgendamentoEnum.CANCELADO);
+        assertThat(agendamento.getDataHoraModificado()).isEqualTo(LocalDateTime.of(2025, 3, 12, 14, 0, 0));
+
         verify(agendamentoRepository, times(1)).findById(3L);
         verify(agendamentoMapper, times(1)).paraEntityCancelamento(agendamento);
         verify(agendamentoRepository, times(1)).save(agendamento);
-
-        assertThat(agendamento.getStatusAgendamento()).isEqualTo(StatusAgendamentoEnum.CANCELADO);
     }
 
+    @Test
+    void deveRetornarNotFoundParaCancelarAgendamentoInexistente () {
+        when(agendamentoRepository.findById(1L)).thenThrow(new NotFoundException("Erro ao atualizar, agendamento nao encontrado."));
+
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> service.cancelaAgendamento(1L));
+
+        assertEquals("Erro ao atualizar, agendamento nao encontrado.", exception.getMessage());
+
+        verify(agendamentoRepository, times(1)).findById(1L);
+    }
+
+//    @Test
+//    void deveRetornarListaComAgendamentos () {
+//        when()
+//    }
 
 
 }
+
+
+//Teste de Falha ao Salvar Agendamento.
+//
+//
+//
+//Teste de Listagem de Agendamentos.
+//
+//Teste de Deleção de Agendamento.
+//
+//Teste de Deleção de Agendamento Não Encontrado.

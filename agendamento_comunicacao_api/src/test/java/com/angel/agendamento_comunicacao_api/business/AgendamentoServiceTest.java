@@ -129,7 +129,7 @@ class AgendamentoServiceTest {
     }
 
 //    @Test
-//    void deveRetornarListaComAgendamentos () {
+//    void deveBuscarAgendamentosComSucesso () {
 //        when()
 //    }
 

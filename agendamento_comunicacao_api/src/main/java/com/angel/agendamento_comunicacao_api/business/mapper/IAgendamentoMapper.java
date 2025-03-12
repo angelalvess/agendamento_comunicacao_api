@@ -8,6 +8,8 @@ import com.angel.agendamento_comunicacao_api.infrastructure.entities.Agendamento
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 
@@ -18,8 +20,11 @@ public interface IAgendamentoMapper {
 
     AgendamentoRecordOut paraOut (Agendamento agendamento);
 
+    List<AgendamentoRecordOut> paraListaOut (List<Agendamento> agendamentos);
+
     @Mapping(target = "dataHoraModificado", expression = "java(LocalDateTime.now())")
     @Mapping(target = "statusAgendamento", expression = "java(StatusAgendamentoEnum.CANCELADO)")
     Agendamento paraEntityCancelamento (Agendamento agendamento);
+
 
 }

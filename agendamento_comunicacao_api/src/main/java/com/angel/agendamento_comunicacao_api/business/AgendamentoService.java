@@ -10,6 +10,10 @@ import com.angel.agendamento_comunicacao_api.infrastructure.repositories.Agendam
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 @RequiredArgsConstructor
 public class AgendamentoService {
@@ -27,6 +31,11 @@ public class AgendamentoService {
 
         return agendamentoMapper.paraOut(agendamentoRepository.findById(id).
                 orElseThrow(() -> new NotFoundException("Agendamento nao encontrado.")));
+    }
+
+    public List<AgendamentoRecordOut> buscaTodosAgendamentos () {
+
+        return agendamentoMapper.paraListaOut(agendamentoRepository.findAll());
     }
 
     public void cancelaAgendamento (Long id) {

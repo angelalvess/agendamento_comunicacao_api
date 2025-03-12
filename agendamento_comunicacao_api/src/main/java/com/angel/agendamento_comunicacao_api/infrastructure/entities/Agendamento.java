@@ -10,8 +10,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "agendamento")
 @AllArgsConstructor
-@NoArgsConstructor
+@Setter
 @Getter
+@NoArgsConstructor
 @Builder
 public class Agendamento {
 

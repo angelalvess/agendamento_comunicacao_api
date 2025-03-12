@@ -7,13 +7,13 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "agendamento")
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
+@Setter
 @Builder
+@Table(name = "agendamento")
+@Entity
 public class Agendamento {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +26,11 @@ public class Agendamento {
     private LocalDateTime dataHoraAgendamento;
     private LocalDateTime dataHoraEnvio;
     private LocalDateTime dataHoraModificado;
-    private StatusAgendamentoEnum statusAgendamentoEnum;
+    private StatusAgendamentoEnum statusAgendamento;
 
     @PrePersist
-    void prePersist () {
-        statusAgendamentoEnum = StatusAgendamentoEnum.AGENDADO;
+    private void prePersist () {
         dataHoraAgendamento = LocalDateTime.now();
+        statusAgendamento = StatusAgendamentoEnum.AGENDADO;
     }
 }
